@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formación</title>
+    <link rel="icon" href="imagenes/astro.png" type="image/x-icon">
+    <link rel="stylesheet" href="CSS/formacion.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * {
+            border: 0;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: rgba(75, 0, 130, 0.8);
+            --fg: #fff;
+            --primary: hsl(223, 90%, 50%);
+            --trans-dur: 0.3s;
+            --trans-timing: cubic-bezier(0.65, 0, 0.35, 1);
+            font-size: 14px;
+            --pastel-blue: #aec6cf;
+            --pastel-green: #77dd77;
+            --pastel-yellow: #fdfd96;
+            --pastel-pink: #ffb7b2;
+            --pastel-purple: #cfc1e8;
+            --pastel-orange: #ffb347;
+        }
+
+        a {
+            color: var(--primary);
+            transition: color var(--trans-dur);
+        }
+
+        body, button {
+            color: var(--fg);
+            font: 1em/1.5 "IBM Plex Sans", sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            height: 100vh;
+            transition: background-color var(--trans-dur), color var(--trans-dur);
+        }
+
+        h1 {
+            font-size: 1.5em;
+            margin: 0 0 3rem;
+            padding-top: 1.5rem;
+            text-align: center;
+        }
+
+        .btn {
+            background-color: var(--fg);
+            border-radius: 0.25em;
+            color: var(--bg);
+            cursor: pointer;
+            padding: 0.375em 0.75em;
+            transition: background-color calc(var(--trans-dur) / 2) linear, color var(--trans-dur);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn:hover {
+            background-color: hsl(223, 10%, 50%);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 0.375em;
+            margin-bottom: 1.5em;
+        }
+
+        .timeline {
+            margin: auto;
+            padding: 0 1.5em;
+            width: 100%;
+            max-width: 36em;
+        }
+
+        .timeline__arrow {
+            background-color: transparent;
+            border-radius: 0.25em;
+            cursor: pointer;
+            flex-shrink: 0;
+            margin-inline-end: 0.25em;
+            outline: transparent;
+            width: 2em;
+            height: 2em;
+            transition: background-color calc(var(--trans-dur) / 2) linear, color var(--trans-dur);
+            -webkit-appearance: none;
+            appearance: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .timeline__arrow:focus-visible, .timeline__arrow:hover {
+            background-color: hsl(223, 10%, 50%, 0.4);
+        }
+
+        .timeline__arrow-icon {
+            display: block;
+            pointer-events: none;
+            transform: rotate(-90deg);
+            transition: transform var(--trans-dur) var(--trans-timing);
+            width: 100%;
+            height: auto;
+        }
+
+        .timeline__date {
+            font-size: 0.833em;
+            line-height: 2.4;
+        }
+
+        .timeline__dot {
+            background-color: currentColor;
+            border-radius: 50%;
+            display: inline-block;
+            flex-shrink: 0;
+            margin: 0.625em 0;
+            margin-inline-end: 1em;
+            position: relative;
+            width: 0.75em;
+            height: 0.75em;
+        }
+
+        .timeline__item {
+            position: relative;
+            padding-bottom: 2.25em;
+        }
+
+        .timeline__item:not(:last-child):before {
+            background-color: currentColor;
+            content: "";
+            display: block;
+            position: absolute;
+            top: 1em;
+            left: 2.625em;
+            width: 0.125em;
+            height: 100%;
+            transform: translateX(-50%);
+        }
+
+        [dir="rtl"] .timeline__arrow-icon {
+            transform: rotate(90deg);
+        }
+
+        [dir="rtl"] .timeline__item:not(:last-child):before {
+            right: 2.625em;
+            left: auto;
+            transform: translateX(50%);
+        }
+
+        .timeline__item-header {
+            display: flex;
+        }
+
+        .timeline__item-body {
+            border-radius: 0.375em;
+            overflow: hidden;
+            margin-top: 0.5em;
+            margin-inline-start: 4em;
+            height: 0;
+        }
+
+        .timeline__item-body-content {
+            background-color: hsl(223, 10%, 50%, 0.2);
+            color: #000;
+            opacity: 0;
+            padding: 0.5em 0.75em;
+            visibility: hidden;
+            transition: opacity var(--trans-dur) var(--trans-timing), visibility var(--trans-dur) steps(1, end);
+        }
+
+        .timeline__meta {
+            width: 100%;
+        }
+
+        .timeline__title {
+            font-size: 1.2em;
+            line-height: 1.333;
+        }
+
+        .timeline__item-body--expanded {
+            height: auto;
+        }
+
+        .timeline__item-body--expanded .timeline__item-body-content {
+            opacity: 1;
+            visibility: visible;
+            transition-delay: var(--trans-dur), 0s;
+        }
+
+        .timeline__arrow[aria-expanded="true"] .timeline__arrow-icon {
+            transform: rotate(0);
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            background-color: #ffeb3b;
+            color: #4b0082;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .timeline__item:nth-child(1) .timeline__item-body-content {
+            background-color: var(--pastel-blue);
+        }
+
+        .timeline__item:nth-child(2) .timeline__item-body-content {
+            background-color: var(--pastel-green);
+        }
+
+        .timeline__item:nth-child(3) .timeline__item-body-content {
+            background-color: var(--pastel-yellow);
+        }
+
+        .timeline__item:nth-child(4) .timeline__item-body-content {
+            background-color: var(--pastel-pink);
+        }
+
+        .timeline__item:nth-child(5) .timeline__item-body-content {
+            background-color: var(--pastel-purple);
+        }
+
+        .timeline__item:nth-child(6) .timeline__item-body-content {
+            background-color: var(--pastel-orange);
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Regresar</a>
+    <svg display="none">
+        <symbol id="arrow">
+            <polyline points="7 10,12 15,17 10" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+        </symbol>
+    </svg>
+    <h1>Educación</h1>
+    <div id="timeline" class="timeline">
+        <div class="btn-group">
+            <button class="btn" type="button" data-action="expand">Expandir todo</button>
+            <button class="btn" type="button" data-action="collapse">Desplegar todo</button>
+        </div>
+        <div class="timeline__item">
+            <div class="timeline__item-header">
+                <button class="timeline__arrow" type="button" id="item1" aria-labelledby="item1-name" aria-expanded="false" aria-controls="item1-ctrld" aria-haspopup="true" data-item="1">
+                    <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
+                        <use href="#arrow" />
+                    </svg>
+                </button>
+                <span class="timeline__dot"></span>
+                <span id="item1-name" class="timeline__meta">
+                    <time class="timeline__date" datetime="2021-10-01">Oct. 2021 - Sept. 2024</time><br>
+                    <strong class="timeline__title">Ingeniería en Desarrollo de Software</strong>
+                </span>
+            </div>
+            <div class="timeline__item-body" id="item1-ctrld" role="region" aria-labelledby="item1" aria-hidden="true">
+                <div class="timeline__item-body-content">
+                    <p class="timeline__item-p">Corporación Universitaria Iberoamericana. En curso y en proceso de grado. <strong>2024</strong><br>Diplomado en desarrollo web</p>
+                </div>
+            </div>
+        </div>
+        <div class="timeline__item">
+            <div class="timeline__item-header">
+                <button class="timeline__arrow" type="button" id="item2" aria-labelledby="item2-name" aria-expanded="false" aria-controls="item2-ctrld" aria-haspopup="true" data-item="2">
+                    <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
+                        <use href="#arrow" />
+                    </svg>
+                </button>
+                <span class="timeline__dot"></span>
+                <span id="item2-name" class="timeline__meta">
+                    <time class="timeline__date" datetime="2017-02-01">Feb. 2017 - Nov. 2018</time><br>
+                    <strong class="timeline__title">Tecnólogo en Análisis y Desarrollo de Sistemas de Información</strong>
+                </span>
+            </div>
+            <div class="timeline__item-body" id="item2-ctrld" role="region" aria-labelledby="item2" aria-hidden="true">
+                <div class="timeline__item-body-content">
+                    <p class="timeline__item-p">Graduada del Servicio Nacional de Aprendizaje (SENA).</p>
+                </div>
+            </div>
+        </div>
+        <div class="timeline__item">
+            <div class="timeline__item-header">
+                <button class="timeline__arrow" type="button" id="item3" aria-labelledby="item3-name" aria-expanded="false" aria-controls="item3-ctrld" aria-haspopup="true" data-item="3">
+                    <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
+                        <use href="#arrow" />
+                    </svg>
+                </button>
+                <span class="timeline__dot"></span>
+                <span id="item3-name" class="timeline__meta">
+                    <time class="timeline__date" datetime="2021-11-01">Nov. 2021 - Dic. 2021</time><br>
+                    <strong class="timeline__title">Manejo de Pruebas de Software, Complementaria Virtual</strong>
+                </span>
+            </div>
+            <div class="timeline__item-body" id="item3-ctrld" role="region" aria-labelledby="item3" aria-hidden="true">
+                <div class="timeline__item-body-content">
+                    <p class="timeline__item-p">Complementaria Servicio Nacional de Aprendizaje (SENA).</p>
+                </div>
+            </div>
+        </div>
+        <div class="timeline__item">
+            <div class="timeline__item-header">
+                <button class="timeline__arrow" type="button" id="item4" aria-labelledby="item4-name" aria-expanded="false" aria-controls="item4-ctrld" aria-haspopup="true" data-item="4">
+                    <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
+                        <use href="#arrow" />
+                    </svg>
+                </button>
+                <span class="timeline__dot"></span>
+                <span id="item4-name" class="timeline__meta">
+                    <time class="timeline__date" datetime="2022-11-01">Nov. 2022 - Nov. 2022</time><br>
+                    <strong class="timeline__title">Aplicación del Marco de Trabajo Scrum para Proyectos de Desarrollo de Software</strong>
+                </span>
+            </div>
+            <div class="timeline__item-body" id="item4-ctrld" role="region" aria-labelledby="item4" aria-hidden="true">
+                <div class="timeline__item-body-content">
+                    <p class="timeline__item-p">Complementaria Servicio Nacional de Aprendizaje (SENA).</p>
+                </div>
+            </div>
+        </div>
+        <div class="timeline__item">
+            <div class="timeline__item-header">
+                <button class="timeline__arrow" type="button" id="item5" aria-labelledby="item5-name" aria-expanded="false" aria-controls="item5-ctrld" aria-haspopup="true" data-item="5">
+                    <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
+                        <use href="#arrow" />
+                    </svg>
+                </button>
+                <span class="timeline__dot"></span>
+                <span id="item5-name" class="timeline__meta">
+                    <time class="timeline__date" datetime="2023-01-01"> Oct. 2023</time><br>
+                    <strong class="timeline__title">Curso de Fundamentos de la programación: Pruebas de software y QA</strong>
+                </span>
+            </div>
+            <div class="timeline__item-body" id="item5-ctrld" role="region" aria-labelledby="item5" aria-hidden="true">
+                <div class="timeline__item-body-content">
+                    <p class="timeline__item-p">LinkedIn, curso online.</p>
+                </div>
+            </div>
+        </div>
+        <div class="timeline__item">
+            <div class="timeline__item-header">
+                <button class="timeline__arrow" type="button" id="item6" aria-labelledby="item6-name" aria-expanded="false" aria-controls="item6-ctrld" aria-haspopup="true" data-item="6">
+                    <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
+                        <use href="#arrow" />
+                    </svg>
+                </button>
+                <span class="timeline__dot"></span>
+                <span id="item6-name" class="timeline__meta">
+                    <time class="timeline__date" datetime="2023-03-01">Oct. 2023</time><br>
+                    <strong class="timeline__title">Certificación Fundamentos de la programación: API y servicios web</strong>
+                </span>
+            </div>
+            <div class="timeline__item-body" id="item6-ctrld" role="region" aria-labelledby="item6" aria-hidden="true">
+                <div class="timeline__item-body-content">
+                    <p class="timeline__item-p">LinkedIn, curso online.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            'use strict';
+
+            var timelineItems = document.querySelectorAll('.timeline__item');
+            var expandButton = document.querySelector('[data-action="expand"]');
+            var collapseButton = document.querySelector('[data-action="collapse"]');
+
+            function toggleItem(event) {
+                var button = event.currentTarget;
+                var isExpanded = button.getAttribute('aria-expanded') === 'true';
+                var itemId = button.getAttribute('data-item');
+                var content = document.getElementById('item' + itemId + '-ctrld');
+
+                button.setAttribute('aria-expanded', !isExpanded);
+                content.setAttribute('aria-hidden', isExpanded);
+
+                content.classList.toggle('timeline__item-body--expanded');
+            }
+
+            function expandAll() {
+                timelineItems.forEach(function (item) {
+                    var button = item.querySelector('.timeline__arrow');
+                    var content = item.querySelector('.timeline__item-body');
+                    button.setAttribute('aria-expanded', true);
+                    content.setAttribute('aria-hidden', false);
+                    content.classList.add('timeline__item-body--expanded');
+                });
+            }
+
+            function collapseAll() {
+                timelineItems.forEach(function (item) {
+                    var button = item.querySelector('.timeline__arrow');
+                    var content = item.querySelector('.timeline__item-body');
+                    button.setAttribute('aria-expanded', false);
+                    content.setAttribute('aria-hidden', true);
+                    content.classList.remove('timeline__item-body--expanded');
+                });
+            }
+
+            timelineItems.forEach(function (item) {
+                var button = item.querySelector('.timeline__arrow');
+                button.addEventListener('click', toggleItem);
+            });
+
+            expandButton.addEventListener('click', expandAll);
+            collapseButton.addEventListener('click', collapseAll);
+        })();
+    </script>
+</body>
+</html>
