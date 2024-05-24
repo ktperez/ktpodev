@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: rgba(75, 0, 130, 0.8);
+    background-size: cover;
+    color: rgba(75, 0, 130, 0.8);
+    margin: 0; /* Elimina el margen predeterminado del body */
+    padding: 0; /* Elimina el relleno predeterminado del body */
+    height: 100vh; /* Ajusta el body para ocupar toda la altura de la ventana del navegador */
+    overflow-x: hidden; /* Evita la barra de desplazamiento horizontal */
+}
+
+h2, p {
+    font-weight: 800; /* Negrita */
+}
+
+.navbar {
+    background-color: rgba(75, 0, 130, 0.8); /* Morado con opacidad */
+}
+
+.navbar-brand, .nav-link {
+    color: #ffeb3b !important; /* Amarillo */
+    font-family: 'Roboto', sans-serif; /* Tamaño uniforme */
+}
+
+.carousel-inner img {
+    max-height: 600px; /* Ajusta la altura máxima según sea necesario */
+    width: auto; /* Para mantener la proporción de aspecto */
+    margin: auto; /* Centra la imagen horizontalmente */
+}
+
+section h2 {
+    color: #ffeb3b; /* Amarillo */
+}
+
+section p {
+    color: #ffffff;
+}
+
+footer {
+    background-color: rgba(75, 0, 130, 0.8); /* Morado con opacidad */
+    color: #fff;
+}
+
+footer h5, footer p, footer a {
+    color: #ffffffcb;
+}
+
+section h2::after {
+    content: '';
+    display: block;
+    width: 50%;
+    height: 2px;
+    background-color: #ff1493; /* Rosado */
+    margin: 10px 0;
+}
+
+.fade-in {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+}
+
+.form-control.is-valid {
+    border-color: #28a745;
+}
+
+.form-control.is-invalid {
+    border-color: #dc3545;
+}
+
+.is-invalid {
+    border-color: #dc3545;
+}
+
+.is-valid {
+    border-color: #28a745;
+}
+
+/* Estilos adicionales para los títulos específicos */
+.navbar-brand {
+    color: #ffeb3b !important; /* Amarillo */
+}
+
+.footer h5 {
+    color: #ffeb3b; /* Amarillo */
+}
+
+.footer a {
+    color: #fff; /* Blanco */
+}

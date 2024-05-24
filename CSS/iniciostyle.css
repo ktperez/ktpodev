@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: #000; /* Fallback background color */
+    color: #ffffff;
+}
+
+h2, p {
+    font-weight: 800; /* Negrita */
+}
+
+.navbar {
+    background-color:rgba(75, 0, 130, 0.8); /* Morado con opacidad */
+}
+
+.navbar-brand, .nav-link {
+    color: #ffeb3b !important; /* Amarillo */
+    font-family: 'Roboto', sans-serif; /* Tamaño uniforme */
+}
+
+.carousel-inner img {
+    max-height: 400px; /* Ajusta la altura máxima según sea necesario */
+    width: auto; /* Para mantener la proporción de aspecto */
+    margin: auto; /* Centra la imagen horizontalmente */
+}
+
+section h2 {
+    color: #ffeb3b; /* Amarillo */
+}
+
+section p {
+    color: #ffffff;
+}
+
+footer {
+    background-color: rgba(75, 0, 130, 0.8); /* Morado con opacidad */
+    color: #fff;
+}
+
+footer h5, footer p, footer a {
+    color: #ffffffcb;
+}
+
+section h2::after {
+    content: '';
+    display: block;
+    width: 50%;
+    height: 2px;
+    background-color: #ff1493; /* Rosado */
+    margin: 10px 0;
+}
+
+.fade-in {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+}
+
+.form-control.is-valid {
+    border-color: #28a745;
+}
+
+.form-control.is-invalid {
+    border-color: #dc3545;
+}
+
+.is-invalid {
+    border-color: #dc3545;
+}
+
+.is-valid {
+    border-color: #28a745;
+}
+
+/* Estilos adicionales para los títulos específicos */
+.navbar-brand {
+    color: #ffeb3b !important; /* Amarillo */
+}
+
+.footer h5 {
+    color: #ffeb3b; /* Amarillo */
+}
+
+.footer a {
+    color: #fff; /* Blanco */
+}
+
+.game-container {
+    text-align: center;
+    padding: 0;
+    margin: 0; /* Remover margen para que el video cubra todo el contenedor */
+    width: 100%;
+    height: 500px; /* Ajusta la altura según sea necesario */
+    position: relative;
+    overflow: hidden; /* Asegura que el video no se desborde del contenedor */
+    border-radius: 0; /* Remover el borde redondeado para que el video cubra toda el área */
+}
+
+.game-container h2 {
+    font-family: 'Roboto', sans-serif;
+    color: #f203c2;
+}
+
+.astronaut-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.astronaut {
+    position: absolute;
+    width: 100px;
+    height: auto;
+    transition: transform 0.1s ease;
+}
+
+#bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Asegura que el video cubra todo el contenedor */
+    z-index: -1;
+}

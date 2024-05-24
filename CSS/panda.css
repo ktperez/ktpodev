@@ -1,0 +1,24 @@
+.panda {
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    margin: 0 auto;
+    z-index: 10;
+}
+
+.panda .ear, .panda .eye-shade, .panda .eye-white .eye-ball, .panda .nose, .panda .hand, .panda .foot {
+    background: #000;
+}
+
+.panda .eye-white, .panda .face, .panda .body {
+    background: #fff;
+}
+
+.panda .eye-white .eye-ball::after {
+    content: '';
+    background: #000;
+}
+
+
